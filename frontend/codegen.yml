@@ -3,20 +3,15 @@ schema: "http://localhost:3000/graphql"
 documents:
   - "./src/graphql/queries/*.graphql"
 generates:
-  src/generated:
-    preset: gql-tag-operations-preset
-    presetConfig:
-      augmentedModuleName: "@urql/core"
-      documentMode: "external"
+  src/generated/graphql.ts:
     plugins:
       - "typescript"
       - "typescript-operations"
-      - typescript-urql:
-          documentMode: "external"
-          importDocumentNodeExternallyFrom: "./operation"
+      - "typescript-urql"
     config:
       strictScalars: true
       scalars:
         DateTime: string
+        ISO8601DateTime: string
       immutableTypes: true
       enumsAsConst: true
