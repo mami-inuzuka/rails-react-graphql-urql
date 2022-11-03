@@ -1,0 +1,22 @@
+overwrite: true
+schema: "http://localhost:3000/graphql"
+documents:
+  - "./src/graphql/queries/*.graphql"
+generates:
+  src/generated:
+    preset: gql-tag-operations-preset
+    presetConfig:
+      augmentedModuleName: "@urql/core"
+      documentMode: "external"
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - typescript-urql:
+          documentMode: "external"
+          importDocumentNodeExternallyFrom: "./operation"
+    config:
+      strictScalars: true
+      scalars:
+        DateTime: string
+      immutableTypes: true
+      enumsAsConst: true
