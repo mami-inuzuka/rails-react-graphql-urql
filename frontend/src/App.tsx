@@ -3,6 +3,7 @@ import {
   useBooksQuery,
   useCreateBookMutation,
   useDeleteBookMutation,
+  useUpdateBookMutation,
 } from "./graphql/generated";
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
   // refetchQueries ... mutation完了後に実行したいqueryを指定
   const [createBook] = useCreateBookMutation({ refetchQueries: ["books"] });
   const [deleteBook] = useDeleteBookMutation({ refetchQueries: ["books"] });
+  const [updateBook] = useUpdateBookMutation({ refetchQueries: ["books"] });
   const [title, setTitle] = useState("");
 
   return (
@@ -26,7 +28,14 @@ function App() {
       {books.map((book) => {
         return (
           <div key={book.id}>
-            {book.title}
+            <input
+              value={book.title || ""}
+              onChange={(e) =>
+                updateBook({
+                  variables: { id: book.id, params: { title: e.target.value } },
+                })
+              }
+            />
             <button
               onClick={() => {
                 deleteBook({ variables: { id: book.id } });
