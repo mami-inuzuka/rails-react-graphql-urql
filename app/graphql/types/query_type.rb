@@ -16,5 +16,8 @@ module Types
 
     # booksクエリが実行されるとQueries::Booksクラスのresolveメソッドが呼ばれる
     field :books, resolver: Queries::Books
+
+    # bookクエリが実行されるとQueries::Bookクラスのresolveメソッドが呼ばれる
+    field :book, resolver: Queries::Book
   end
 end
