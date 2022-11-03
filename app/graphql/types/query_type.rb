@@ -13,5 +13,8 @@ module Types
     def test_field
       "Hello World!"
     end
+
+    # booksクエリが実行されるとQueries::Booksクラスのresolveメソッドが呼ばれる
+    field :books, resolver: Queries::Books
   end
 end
