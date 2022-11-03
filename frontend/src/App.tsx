@@ -1,25 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { gql, useQuery } from "@apollo/client";
+
+const FETCH_BOOKS = gql`
+  query {
+    books {
+      id
+      title
+    }
+  }
+`;
+
+type Book = {
+  id: string;
+  title: string;
+};
 
 function App() {
+  const { data: { books = [] } = {} } = useQuery(FETCH_BOOKS);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {books.map((book: Book) => {
+        return <div key={book.id}>{book.title}</div>;
+      })}
+    </>
   );
 }
 
