@@ -25,7 +25,18 @@ const App = observer(
           </button>
 
           {this.pageState.books.map((book) => {
-            return <p key={book.id}>本のタイトル：{book.title}</p>;
+            return (
+              <p key={book.id}>
+                本のタイトル：{book.title}
+                <button
+                  onClick={() => {
+                    this.pageState.delete(book.id);
+                  }}
+                >
+                  🗑
+                </button>
+              </p>
+            );
           })}
         </>
       );

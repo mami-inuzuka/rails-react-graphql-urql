@@ -5,6 +5,7 @@ import {
   BookAttributes,
   BooksDocument,
   CreateBookDocument,
+  DeleteBookDocument,
 } from "./generated/graphql";
 
 type Book = {
@@ -45,5 +46,16 @@ export class AppState {
     if (createdBook) {
       this.books.push(createdBook.data?.createBook?.book);
     }
+  }
+
+  async delete(id: number) {
+    await client
+      .mutation(DeleteBookDocument, {
+        id,
+      })
+      .toPromise();
+    this.books = this.books.filter((book) => {
+      return book.id !== id;
+    });
   }
 }
