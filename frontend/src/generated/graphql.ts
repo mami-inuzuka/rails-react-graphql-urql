@@ -109,12 +109,33 @@ export type UpdateBookPayload = {
   readonly clientMutationId?: Maybe<Scalars['String']>;
 };
 
+export type CreateBookMutationVariables = Exact<{
+  params: BookAttributes;
+}>;
+
+
+export type CreateBookMutation = { readonly __typename?: 'Mutation', readonly createBook?: { readonly __typename?: 'CreateBookPayload', readonly book: { readonly __typename?: 'Book', readonly id: string, readonly title?: string | null } } | null };
+
 export type BooksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type BooksQuery = { readonly __typename?: 'Query', readonly books: ReadonlyArray<{ readonly __typename?: 'Book', readonly id: string, readonly title?: string | null }> };
 
 
+export const CreateBookDocument = gql`
+    mutation CreateBook($params: BookAttributes!) {
+  createBook(input: {params: $params}) {
+    book {
+      id
+      title
+    }
+  }
+}
+    `;
+
+export function useCreateBookMutation() {
+  return Urql.useMutation<CreateBookMutation, CreateBookMutationVariables>(CreateBookDocument);
+};
 export const BooksDocument = gql`
     query books {
   books {

@@ -2,6 +2,7 @@ overwrite: true
 schema: "http://localhost:3000/graphql"
 documents:
   - "./src/graphql/queries/*.graphql"
+  - "./src/graphql/mutations/*.graphql"
 generates:
   src/generated/graphql.ts:
     plugins:
