@@ -1,38 +1,22 @@
+import { observer } from "mobx-react";
 import React from "react";
-import { client } from ".";
-import { Book, BooksDocument } from "./generated/graphql";
+import { AppState } from "./AppState";
 
-type State = {
-  books: Book[];
-};
-class App extends React.Component {
-  state: State = {
-    books: [],
-  };
-  // @ts-ignore
-  constructor(props) {
-    super(props);
-    this.init();
-  }
+const App = observer(
+  class App extends React.Component {
+    pageState = new AppState();
 
-  async init() {
-    console.log("init");
-    const response = await client.query(BooksDocument, {}).toPromise();
-    this.setState({
-      books: response.data.books,
-    });
+    render() {
+      return (
+        <>
+          <h1>書籍一覧</h1>
+          {this.pageState.books.map((book) => {
+            return <p key={book.id}>本のタイトル：{book.title}</p>;
+          })}
+        </>
+      );
+    }
   }
-
-  render() {
-    return (
-      <>
-        <h1>書籍一覧</h1>
-        {this.state.books.map((book) => {
-          return <p key={book.id}>本のタイトル：{book.title}</p>;
-        })}
-      </>
-    );
-  }
-}
+);
 
 export default App;
