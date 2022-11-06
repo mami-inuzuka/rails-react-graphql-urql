@@ -116,6 +116,13 @@ export type CreateBookMutationVariables = Exact<{
 
 export type CreateBookMutation = { readonly __typename?: 'Mutation', readonly createBook?: { readonly __typename?: 'CreateBookPayload', readonly book: { readonly __typename?: 'Book', readonly id: string, readonly title?: string | null } } | null };
 
+export type DeleteBookMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type DeleteBookMutation = { readonly __typename?: 'Mutation', readonly deleteBook?: { readonly __typename?: 'DeleteBookPayload', readonly id: string } | null };
+
 export type BooksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -135,6 +142,17 @@ export const CreateBookDocument = gql`
 
 export function useCreateBookMutation() {
   return Urql.useMutation<CreateBookMutation, CreateBookMutationVariables>(CreateBookDocument);
+};
+export const DeleteBookDocument = gql`
+    mutation DeleteBook($id: ID!) {
+  deleteBook(input: {id: $id}) {
+    id
+  }
+}
+    `;
+
+export function useDeleteBookMutation() {
+  return Urql.useMutation<DeleteBookMutation, DeleteBookMutationVariables>(DeleteBookDocument);
 };
 export const BooksDocument = gql`
     query books {
