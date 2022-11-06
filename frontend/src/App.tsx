@@ -16,6 +16,7 @@ class App extends React.Component {
   }
 
   async init() {
+    console.log("init");
     const response = await client.query(BooksDocument, {}).toPromise();
     this.setState({
       books: response.data.books,
