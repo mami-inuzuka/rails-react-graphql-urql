@@ -23,21 +23,22 @@ const App = observer(
           >
             登録
           </button>
-
-          {this.pageState.books.map((book) => {
-            return (
-              <p key={book.id}>
-                本のタイトル：{book.title}
-                <button
-                  onClick={() => {
-                    this.pageState.delete(book.id);
-                  }}
-                >
-                  🗑
-                </button>
-              </p>
-            );
-          })}
+          <ul>
+            {this.pageState.books.map((book) => {
+              return (
+                <li key={book.id}>
+                  ID: {book.id} タイトル：{book.title}{" "}
+                  <button
+                    onClick={() => {
+                      this.pageState.delete(book.id);
+                    }}
+                  >
+                    🗑
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
         </>
       );
     }
